@@ -1,6 +1,6 @@
 # やっつけ仕事
 
-[aoj](http://judge.u-aizu.ac.jp/onlinejudge/)のAPIから問題ID、ジャッジID、ソースコードを取得する。
+[aojのAPI](http://judge.u-aizu.ac.jp/onlinejudge/)から問題ID、ジャッジID、ソースコードを取得する。
 APIから、すべてのソースコードを取得できるが、言語、ステータスの情報がないのでjson形式で取得してみた。
 以下データ構造
 ```
