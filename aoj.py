@@ -31,7 +31,7 @@ def mk_id_ls():
         json.dump(judgeid.json(), a)
 
 
-#問題IDをlistで返す関数
+#problem_idで保存したjsonから問題IDを取得し、listを返す関数
 def pro_id_ls():
     pro_id_ls = []
     with open('problem0.json', 'r') as f:
@@ -43,6 +43,6 @@ def pro_id_ls():
             pro_id_ls.append(id)
     return pro_id_ls
 
-    
+
 
 if __name__ == "__main__":
