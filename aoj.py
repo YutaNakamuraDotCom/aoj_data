@@ -17,27 +17,32 @@ def problem_id():
 
     return body.json()
 
-#各問題のユーザの全回答id,ステータスを取得
-def mkidls():
+#各問題のユーザの全回答id,ステータスを取得しjson形式で保存
+def mk_id_ls():
     url = 'https://judgeapi.u-aizu.ac.jp'
     para = '/submission_records/problems/{id}?&size={size}'
     savepath = 'problem{num}.json'
+    b=pro_id_ls()
+    prolen = len(b)
+    for num in (range(0,prolen)):
+        id=b[num]
+        judgeid = requests.get(url + para.format(id=id,size=50000))
+        a = open(savepath.format(num=id,), 'w')
+        json.dump(judgeid.json(), a)
 
+
+#問題IDをlistで返す関数
+def pro_id_ls():
+    pro_id_ls = []
     with open('problem0.json', 'r') as f:
         b=json.load(f)
         prolen = len(b)
-        for num in (range(0,prolen)):
-            c=b[num]
+        for num in range(0000,prolen):
+            c = b[num]
             id = c['id']
-            judgeid = requests.get(url + para.format(id=id,size=50000))
-            a = open(savepath.format(num=id,), 'w')
-            json.dump(judgeid.json(), a)
+            pro_id_ls.append(id)
+    return pro_id_ls
 
-with open('problem0.json', 'r') as f:
-    num = len(json.load(f))
-for proid in range(0000,num):
-    with open('problem{proid}.json', 'r') as f:
-        b=json.load(f)
-        print(b)
+    
 
-mkidls()
+if __name__ == "__main__":
