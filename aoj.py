@@ -86,7 +86,6 @@ def mk_result(url, judge_id):
     counter = 1
     print(counter)
     for a in pro_id:
-        a = int(a)
         length = len(judge_id)
         for num in range(length):
             # time.sleep(5)
@@ -98,11 +97,13 @@ def mk_result(url, judge_id):
             w = judgeid.json()
             print(w)
             code = w["sourceCode"]
-            # status = w["status"]
             if not code == 'You are not allowed to see this code.':
                 d.update(sourceCode=code)
-                result.append(d)
-                # if status == 0:
+                status = d["status"]
+                #ほしいステータスを入れる
+                if status == 0:
+                    result.append(d)
+                
         a = open(savepath.format(pro_id=a), 'a')
         json.dump(result, a)
         counter += 1
