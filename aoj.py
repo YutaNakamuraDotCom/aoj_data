@@ -78,13 +78,18 @@ def c_filter():
     return judge_id
 
 
-def mk_result(url, judge_id):
+def mk_result(url):
     para = '/reviews/{judge}'
     savepath = 'result{pro_id}.json'
+    path = 'lang{pro_id}.json'
     pro_id = pro_id_ls()
     result = []
+    judge_id=[]
     for a in pro_id:
-        length = len(judge_id)
+        with open(path.format(pro_id=a), 'r') as f:
+            judge_id = json.load(f)
+            length = len(judge_id)
+        print(length)
         for num in range(length):
             # time.sleep(5)
             d = judge_id[num]
@@ -104,18 +109,18 @@ def mk_result(url, judge_id):
                     li=['cpuTime','memory','codeSize','accuracy','score','token','judgeDate','problemTitle','judgeType','submissionDate']
                     for key_pop in li:
                         d.pop(key_pop,None)
-                    result.append(d)
+                        result.append(d)
                     
-        a = open(savepath.format(pro_id=a), 'a')
-        json.dump(result, a)
+        b = open(savepath.format(pro_id=a), 'w')
+        json.dump(result, b)
 
 
 def main():
     url = 'https://judgeapi.u-aizu.ac.jp'
     problem_id(url)
     mk_id_ls(url)
-    judge_id = c_filter()
-    mk_result(url, judge_id)
+    c_filter()
+    mk_result(url)
 
 
 if __name__ == "__main__":
