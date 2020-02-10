@@ -92,7 +92,7 @@ def mk_result(url, judge_id):
             d = judge_id[num]
             judgeis_ls = d['judgeId']
             print(judgeis_ls)
-
+            
             judgeid = requests.get(url + para.format(judge=judgeis_ls))
             w = judgeid.json()
             print(w)
@@ -102,7 +102,8 @@ def mk_result(url, judge_id):
                 status = d["status"]
                 #ほしいステータスを入れる
                 if status == 0:
-                    result.append(d)
+                    li=d.pop('cpuTime','memory','codeSize','accuracy','score','token','judgeDate')
+                    result.append(li)
                 
         a = open(savepath.format(pro_id=a), 'a')
         json.dump(result, a)
