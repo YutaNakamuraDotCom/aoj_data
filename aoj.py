@@ -13,8 +13,7 @@ def problem_id(url):
 
     for page in list(range(0, 1)):
 
-        # body = requests.get(url + para.format(page=page, size=2500))
-        body = requests.get(url + para.format(page=page, size=3))
+        body = requests.get(url + para.format(page=page, size=2500))
 
         a = open(savepath.format(num=page), 'w')
         json.dump(body.json(), a)
@@ -29,8 +28,7 @@ def mk_id_ls(url):
     savepath = 'problem{num}.json'
     b = pro_id_ls()
     prolen = len(b)
-    # for num in (range(0, prolen)):
-    for num in (range(0, 3)):
+    for num in (range(0, prolen)):
         id = b[num]
         # judgeid = requests.get(url + para.format(id=id, size=100000))
         judgeid = requests.get(url + para.format(id=id, size=100))
@@ -45,8 +43,7 @@ def pro_id_ls():
     with open('problem0.json', 'r') as f:
         b = json.load(f)
         prolen = len(b)
-        # for num in range(0000, prolen):
-        for num in range(0000, 3):
+        for num in range(0000, prolen):
             c = b[num]
             id = c['id']
             pro_id_ls.append(id)
@@ -59,8 +56,7 @@ def c_filter():
     ls = pro_id_ls()
     leng = len(ls)
     path = 'problem{pro_id}.json'
-    # for a in range(0, leng):
-    for a in range(0, 3):
+    for a in range(0, leng):
         pro_id = ls[a]
         judge_id = []
         print(pro_id)
@@ -85,7 +81,6 @@ def c_filter():
 def mk_result(url, judge_id):
     para = '/reviews/{judge}'
     savepath = 'result{pro_id}.json'
-    path = 'lang{lang_id}.json'
     pro_id = pro_id_ls()
     result = []
     counter = 1
