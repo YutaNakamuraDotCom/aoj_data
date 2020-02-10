@@ -12,7 +12,7 @@ APIから、すべてのソースコードを取得できるが、言語、ス�
         "problemId": str,
         "submissionDate": int,
         "language": str{"C++"},
-        "status": int{1 or 4},
+        "status": int{0-8},
         "cpuTime": int,
         "memory": int,
         "codeSize": int,
@@ -21,7 +21,7 @@ APIから、すべてのソースコードを取得できるが、言語、ス�
         "score": int,
         "problemTitle": null,
         "token": null
-        "source": str{}
+        "sourceCode": str{}
     },
     {
         ...
