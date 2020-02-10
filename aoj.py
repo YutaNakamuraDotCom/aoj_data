@@ -64,23 +64,23 @@ def c_filter():
         li = []
         pro_id = ls[a]
         judge_id = []
-        # print(pro_id)
+        print(pro_id)
         with open(path.format(pro_id=pro_id), 'r') as f:
             judge = json.load(f)
             judge_leng = len(judge)
             for b in range(0, judge_leng):
                 judge_temp = judge[b]
                 judge_lang = judge_temp['language']
-                # print(b)
+                print(judge_temp)
                 if judge_lang in ['C', 'C++', 'c++14']:
                     result.update(judge_temp)
-                    judge_id.append(str(result['judgeId']))
-                    li.append(result)
+                    judge_id.append(result)
+
                     # print(judge_lang)
 
         savepath = 'lang{pro_id}.json'
         a = open(savepath.format(pro_id=pro_id,), 'w')
-        json.dump(li, a)
+        json.dump(judge_id, a)
         # print('ok')
     return judge_id
 
@@ -90,7 +90,7 @@ def mk_result(url, judge_id):
     savepath = 'result{pro_id}.json'
     path = 'lang{lang_id}.json'
     pro_id = pro_id_ls()
-    result=[]
+    result = []
     for a in pro_id:
         a = int(a)
         with open(path.format(lang_id=pro_id[a]), 'r') as f:
@@ -100,8 +100,11 @@ def mk_result(url, judge_id):
             # time.sleep(5)
             print("                                                                                                                                                                                ")
             print(num)
-            d = filter_json[num]
-            judgeis_ls = d['judgeId']
+            te = list(filter_json)
+            d = te[num]
+            ta = dict(d)
+            judgeis_ls = ta['judgeId']
+            print('あｓｆじゃいｊふぁｐ')
             print(judgeis_ls)
 
             judgeid = requests.get(url + para.format(judge=judgeis_ls))
@@ -109,8 +112,7 @@ def mk_result(url, judge_id):
             print(w)
             z = w["sourceCode"]
             print(z)
-            if not z=='You are not allowed to see this code.':
-                if
+            if not z == 'You are not allowed to see this code.':
                 d.update(sourceCode=z)
                 result.append(d)
                 print(d)
