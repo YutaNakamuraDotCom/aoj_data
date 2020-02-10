@@ -32,7 +32,8 @@ def mk_id_ls(url):
     # for num in (range(0, prolen)):
     for num in (range(0, 3)):
         id = b[num]
-        judgeid = requests.get(url + para.format(id=id, size=100000))
+        # judgeid = requests.get(url + para.format(id=id, size=100000))
+        judgeid = requests.get(url + para.format(id=id, size=100))
         a = open(savepath.format(num=id,), 'w')
         json.dump(judgeid.json(), a)
         print(str(num)+'ファイル出力')
@@ -60,23 +61,19 @@ def c_filter():
     path = 'problem{pro_id}.json'
     # for a in range(0, leng):
     for a in range(0, 3):
-        result = {}
-        li = []
         pro_id = ls[a]
         judge_id = []
         print(pro_id)
         with open(path.format(pro_id=pro_id), 'r') as f:
             judge = json.load(f)
             judge_leng = len(judge)
+            print(judge_leng)
             for b in range(0, judge_leng):
                 judge_temp = judge[b]
                 judge_lang = judge_temp['language']
                 print(judge_temp)
                 if judge_lang in ['C', 'C++', 'c++14']:
-                    result.update(judge_temp)
-                    judge_id.append(result)
-
-                    # print(judge_lang)
+                    judge_id.append(judge_temp)
 
         savepath = 'lang{pro_id}.json'
         a = open(savepath.format(pro_id=pro_id,), 'w')
@@ -91,33 +88,29 @@ def mk_result(url, judge_id):
     path = 'lang{lang_id}.json'
     pro_id = pro_id_ls()
     result = []
+    counter = 1
+    print(counter)
     for a in pro_id:
         a = int(a)
-        with open(path.format(lang_id=pro_id[a]), 'r') as f:
-            filter_json = json.load(f)
-            length = len(filter_json)
+        length = len(judge_id)
         for num in range(length):
             # time.sleep(5)
-            print("                                                                                                                                                                                ")
-            print(num)
-            te = list(filter_json)
-            d = te[num]
-            ta = dict(d)
-            judgeis_ls = ta['judgeId']
-            print('あｓｆじゃいｊふぁｐ')
+            d = judge_id[num]
+            judgeis_ls = d['judgeId']
             print(judgeis_ls)
 
             judgeid = requests.get(url + para.format(judge=judgeis_ls))
             w = judgeid.json()
             print(w)
-            z = w["sourceCode"]
-            print(z)
-            if not z == 'You are not allowed to see this code.':
-                d.update(sourceCode=z)
+            code = w["sourceCode"]
+            # status = w["status"]
+            if not code == 'You are not allowed to see this code.':
+                d.update(sourceCode=code)
                 result.append(d)
-                print(d)
-        a = open(savepath.format(pro_id=num), 'a')
+                # if status == 0:
+        a = open(savepath.format(pro_id=a), 'a')
         json.dump(result, a)
+        counter += 1
 
 
 def main():
