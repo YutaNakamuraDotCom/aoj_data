@@ -84,7 +84,7 @@ def mk_result(url):
     path = 'lang{pro_id}.json'
     pro_id = pro_id_ls()
     result = []
-    judge_id=[]
+    judge_id = []
     for a in pro_id:
         with open(path.format(pro_id=a), 'r') as f:
             judge_id = json.load(f)
@@ -95,22 +95,23 @@ def mk_result(url):
             d = judge_id[num]
             judgeis_ls = d['judgeId']
             print(judgeis_ls)
-            
+
             judgeid = requests.get(url + para.format(judge=judgeis_ls))
             w = judgeid.json()
-            print(w)
+            print('問題ID:' + a + 'の回答ID:' + w + 'を問い合わせ中')
             code = w["sourceCode"]
             if not code == 'You are not allowed to see this code.':
                 d.update(sourceCode=code)
                 status = d["status"]
-                #ほしいステータスを入れる
+                # ほしいステータスを入れる
                 if status == 0:
                     print(d)
-                    li=['cpuTime','memory','codeSize','accuracy','score','token','judgeDate','problemTitle','judgeType','submissionDate']
+                    li = ['cpuTime', 'memory', 'codeSize', 'accuracy', 'score', 'token',
+                          'judgeDate', 'problemTitle', 'judgeType', 'submissionDate']
                     for key_pop in li:
-                        d.pop(key_pop,None)
+                        d.pop(key_pop, None)
                         result.append(d)
-                    
+
         b = open(savepath.format(pro_id=a), 'w')
         json.dump(result, b)
 
