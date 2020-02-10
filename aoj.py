@@ -83,8 +83,6 @@ def mk_result(url, judge_id):
     savepath = 'result{pro_id}.json'
     pro_id = pro_id_ls()
     result = []
-    counter = 1
-    print(counter)
     for a in pro_id:
         length = len(judge_id)
         for num in range(length):
@@ -102,12 +100,14 @@ def mk_result(url, judge_id):
                 status = d["status"]
                 #ほしいステータスを入れる
                 if status == 0:
-                    li=d.pop('cpuTime','memory','codeSize','accuracy','score','token','judgeDate')
-                    result.append(li)
-                
+                    print(d)
+                    li=['cpuTime','memory','codeSize','accuracy','score','token','judgeDate','problemTitle','judgeType','submissionDate']
+                    for key_pop in li:
+                        d.pop(key_pop,None)
+                    result.append(d)
+                    
         a = open(savepath.format(pro_id=a), 'a')
         json.dump(result, a)
-        counter += 1
 
 
 def main():
