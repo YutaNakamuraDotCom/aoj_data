@@ -30,8 +30,7 @@ def mk_id_ls(url):
     prolen = len(b)
     for num in (range(0, prolen)):
         id = b[num]
-        # judgeid = requests.get(url + para.format(id=id, size=100000))
-        judgeid = requests.get(url + para.format(id=id, size=100))
+        judgeid = requests.get(url + para.format(id=id, size=100000))
         a = open(savepath.format(num=id,), 'w')
         json.dump(judgeid.json(), a)
         print(str(num)+'ファイル出力')
@@ -83,13 +82,13 @@ def mk_result(url):
     savepath = 'result{pro_id}.json'
     path = 'lang{pro_id}.json'
     pro_id = pro_id_ls()
-    result = []
     judge_id=[]
     for a in pro_id:
         with open(path.format(pro_id=a), 'r') as f:
             judge_id = json.load(f)
             length = len(judge_id)
         print(length)
+        result = []
         for num in range(length):
             # time.sleep(5)
             d = judge_id[num]
