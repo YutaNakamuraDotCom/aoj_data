@@ -109,7 +109,7 @@ def mk_result(url):
                     li=['cpuTime','memory','codeSize','accuracy','score','token','judgeDate','problemTitle','judgeType','submissionDate']
                     for key_pop in li:
                         d.pop(key_pop,None)
-                        result.append(d)
+                    result.append(d)
                     
         b = open(savepath.format(pro_id=a), 'w')
         json.dump(result, b)
